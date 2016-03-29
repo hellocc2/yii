@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<link type="text/css" rel="stylesheet" href="static/css/login.css" />
+{if $auto_redirect}
+<meta http-equiv="refresh" content="3;URL={$message.back_url}" />
+{/if}
+{* 包含脚本文件 *}
+{insert_scripts files='common.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="register clearfix">
+  <div class="LoginTitle">{$lang.system_info}</div>
+    <div class="para_blo_title"><b class="icon_msg2"></b><strong class="tit">{$message.content}</strong></div>
+    <div class="register2">
+      <div class="register3">
+        <!-- {if $message.url_info} -->
+          <!--{foreach from=$message.url_info key=info item=url}-->
+          <p><a href="{$url}">{$info}</a></p>
+          <!--{/foreach}-->
+        <!--{/if}-->
+       </div>
+</div>
+</div>
+<!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_service.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

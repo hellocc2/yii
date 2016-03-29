@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<link type="text/css" rel="stylesheet" href="static/css/global.css" />
+<link type="text/css" rel="stylesheet" href="static/css/join.css" />
+<script type="text/javascript">
+var process_request = "{$lang.process_request}";
+</script>
+{insert_scripts files='common.js'}{insert_scripts files='transport.js,utils.js,region.js'}
+<script type="text/javascript" src="static/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="static/js/global.js"></script>
+<script type="text/javascript" src="static/js/formvalidatorregex.js"></script> 
+<script type="text/javascript" src="static/js/formvalidator.js"></script> 
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="joinAbout">
+  <div class="main joinbanner">
+    <h2>申请商家入驻</h2>
+  </div>
+  <div class="joinfor clearfix">
+    <div class="joinforL"><img src="static/images/join5.jpg" /></div>
+    <div class="joinforR">
+	      <script type="text/javascript">
+          region.isAdmin = false;
+          {literal}
+          onload = function() {
+            if (!document.all)
+            {
+              document.forms['theForm'].reset();
+            }
+          }
+          {/literal}
+        </script>
+      <form id="theForm" name="theForm" method="post" action="join.php?act=add">
+        <ul class="cont">
+          <li class="clearfix"><span class="tit">公司名称：</span>
+            <input type="text" name="company_name" id="company_name" class="input_long">
+            <div class="FloatBox"><span id="company_nameTip"></span></div>
+          </li>
+          <li id="district" class="clearfix"><span class="tit">地&#12288;&#12288;区：</span>
+            <select name="province"  class="sgcategory" id="selProvinces" onchange="region.changed(this, 2, 'selCities')" >
+			    <option value="0">请选择省</option>
+				<!-- {foreach from=$shop_province item=country} -->
+				<option value="{$country.region_id}" {if $consignee.country eq $country.region_id}selected{/if}>{$country.region_name}</option>
+				<!-- {/foreach} -->
+            </select>
+            <select name="city" id="selCities" class="sgcategory" onchange="region.changed(this, 3, 'selDistricts')">
+			<option value="0">请选择市</option>
+            </select>
+            <select name="district" id="selDistricts" class="sgcategory">
+			<option value="0">请选择区县</option>
+            </select>
+          </li>
+          <li class="clearfix"><span class="tit">详细地址：</span>
+            <input type="text" name="address" id="address" class="input_long">
+            <div class="FloatBox"><span id="addressTip"></span></div>
+          </li>
+          <li class="clearfix"><span class="tit">联 系 人：</span>
+            <input type="text" name="linkname" id="linkname" class="input_long">
+            <div class="FloatBox"><span id="realnameTip"></span></div>
+          </li>
+          <li class="clearfix"> <span class="tit">联系电话：</span>
+            <input type="text" name="mobile" id="mobile" class="input_long">
+            <div class="FloatBox"><span id="mobileTip"></span></div>
+          </li>
+          <li class="clearfix"><span class="tit">电子邮箱：</span>
+            <input type="text" name="email" id="email" class="input_long">
+            <div class="FloatBox"><span id="emailTip"></span></div>
+          </li>
+          <li class="clearfix"><span class="tit">代理级别：</span>
+            <select name="agency_rank" class="input_long">
+              <option value="厂商">厂商</option>
+              <option value="国代">国代</option>
+              <option value="分销商">分销商</option>
+              <option value="其他">其他</option>
+            </select>
+            <span class="tit pl">注册资本：</span>
+            <input type="text" name="registered_capital" id="registered_capital" class="input_long" />
+            <em>万元</em>
+            <div class="FloatBox"><span id="registered_capitalTip"></span></div>
+          </li>
+          <li class="clearfix"> <span class="tit">年销售额：</span>
+            <input type="text" name="annual_sales" id="annual_sales" class="input_long" />
+            <em>万元</em>
+            <div class="FloatBox"><span id="annual_salesTip"></span></div>
+          </li>
+          <li class="clearfix"><span class="tit">品牌/类别：</span>
+            <input type="text" name="brand" id="brand" class="input_long">
+            <div class="FloatBox"><span id="brandTip"></span></div>
+          </li>
+          <li class="clearfix"><span class="tit">合作伙伴：</span>
+            <textarea name="partner" id="partner" class="textarea_long textarea_long_big">多个合作伙伴名称，用","号隔开。</textarea>
+          </li>
+          <li class="clearfix"><span class="tit">留&nbsp;&nbsp;言：</span>
+            <textarea name="message" id="message" class="textarea_long">留言内容请不要超过2000字，企业介绍等内容，请以邮件形式发送。</textarea>
+          </li>
+        </ul>
+        <div class="btn_wrap">
+          <input type="submit" name="dosubmit" value="提&nbsp;交" class="btn_strong" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_service.lbi" --><!-- #EndLibraryItem -->
+<script>
+$(document).ready(function() {
+	
+	$.formValidator.initConfig({formid:"theForm",debug:false,submitonce:true,
+		onerror:function(msg,obj,errorlist){
+			alert(msg);
+		}
+	});
+	$("#linkname").formValidator({tipid:"realnameTip",empty:false,onshow:"请输入联系人",onfocus:"请输入中文汉字"}).inputValidator({min:2,max:8,onerrormin:"联系人不能为空！",onerror:"联系人名在四个字以内"}).regexValidator({regexp:"chinese",datatype:"enum",onerror:"联系人名必须是汉字"});
+	
+	$("#mobile").formValidator({tipid:"mobileTip",empty:false,onshow:"请输入手机号码",onfocus:"请正确填写手机号码！",oncorrect:"手机号正确"}).inputValidator({min:1,max:18,onerrormin:"联系方式不能为空！",onerror:"手机的格式不正确！"}).regexValidator({regexp:"mobile",datatype:"enum",onerror:"手机的格式不正确！"});
+
+
+	$("#phone").formValidator({tipid:"phoneTip",empty:true,onshow:"请输入电话号码",onfocus:"列：086-0755-86543246",oncorrect:"电话号正确"}).inputValidator({min:1,max:18,onerrormin:"请输入联系方式",onerror:"电话号的格式不正确！"}).regexValidator({regexp:"tel",datatype:"enum",onerror:"电话号的格式不正确！"});
+	
+	$("#email").formValidator({tipid:"emailTip",empty:false,onshow:"请输入邮箱",onfocus:"邮箱不能为空！",oncorrect:"输入正确"}).inputValidator({min:1,max:50,onerrormin:"请输入电子邮箱",onerror:"邮箱格式不正确！"}).regexValidator({regexp:"email",datatype:"enum",onerror:"邮箱格式不正确！"});
+	
+	$("#registered_capital").formValidator({tipid:"registered_capitalTip",empty:false,onshow:"不能为空",onfocus:"只能为数字！",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"请填写注册资金"}).regexValidator({regexp:"decmal1",datatype:"enum",onerror:"注册资金输入错误！"});
+	
+	$("#annual_sales").formValidator({tipid:"annual_salesTip",empty:false,onshow:"不能为空",onfocus:"只能为数字",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"请填写年销售额"}).regexValidator({regexp:"decmal1",datatype:"enum",onerror:"年销售额输入错误"});
+	
+	$("#address").formValidator({tipid:"addressTip",empty:false,onshow:"不能为空",onfocus:"请输入公司的详细地址",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"详细地址不能为空"});
+	
+	$("#company_name").formValidator({tipid:"company_nameTip",empty:false,onshow:"不能为空",onfocus:"请输入公司名称",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"公司名称不能为空"});
+	
+	//$("#brand").formValidator({tipid:"brandTip",empty:false,onshow:"不能为空",onfocus:"请输入品牌/类别",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"品牌/类别不能为空"});
+	
+//string
+  });
+  
+  $(function(){
+      $("#message").focus(function() {
+		if($("#message").val()=='留言内容请不要超过2000字，企业介绍等内容，请以邮件形式发送。'){
+	      $("#message").val('');
+		}
+	  });
+	  $("#message").focusout(function() {
+		if($("#message").val()=='留言内容请不要超过2000字，企业介绍等内容，请以邮件形式发送。'){
+	      $("#message").val('');
+		}
+		if($("#message").val()==''){
+	      $("#message").val('留言内容请不要超过2000字，企业介绍等内容，请以邮件形式发送。');
+		}
+	  });
+	  $("#partner").focus(function() {
+	  if($("#partner").val()=='多个合作伙伴名称，用","号隔开。'){
+	      $("#partner").val('');
+		}
+	  });
+	  $("#partner").focusout(function() {
+	  if($("#partner").val()=='多个合作伙伴名称，用","号隔开。'){
+	      $("#partner").val('');
+		}
+		if($("#partner").val()==''){
+	      $("#partner").val('多个合作伙伴名称，用","号隔开。');
+		}
+	  });
+	  
+  })
+</script>
+
+</body>
+</html>

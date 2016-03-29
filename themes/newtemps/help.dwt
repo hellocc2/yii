@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<link type="text/css" rel="stylesheet" href="static/css/global.css" />
+<link type="text/css" rel="stylesheet" href="static/css/Help.css" />
+<script type="text/javascript">
+var process_request = "{$lang.process_request}";
+</script>
+{insert_scripts files='common.js'}{insert_scripts files='transport.js,utils.js'}
+<script type="text/javascript" src="static/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="static/js/global.js"></script>
+<script type="text/javascript" src="static/js/comment.js"></script>
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="main margin pathinfo"><a href="./">首页</a><span>&gt;</span>帮助中心<span>&gt;</span>{$article.title|escape:html}</div>
+<div class="main clearfix margin">
+  <div class="helpLeft">
+    <div class="userLeft">
+      <dl>
+	  <!-- {foreach from=$helps item=help_cat} -->
+        <dt>{$help_cat.cat_name}</dt>
+		<!-- {foreach from=$help_cat.article item=item} -->
+		<dd class="{if $article_id == $item.article_id}cur{/if}"><a href="{$item.url}" title="{$item.title|escape:html}">{$item.short_title}</a></dd>
+		<!--{/foreach}--> 
+	 <!--{/foreach}-->	
+      </dl>
+    </div>
+  </div>
+  <div class="helpRight">
+    <div class="helpRightTitle">{$article.title|escape:html}</div>
+    <div class="helpcontent"><div class="newcontent">{$article.content}</div>
+      <div class="Separated"></div>
+    </div>
+    <div class="RelatedHelp">
+      <div class="RelatedHelpTitle">相关主题</div>
+      <ul>
+          {if $next_article}
+            <li><a href="{$next_article.url}" class="f6">{$next_article.title}</a></li>
+          {/if}
+          {if $prev_article}
+            <li><a href="{$prev_article.url}" class="f6">{$prev_article.title}</a></li>
+          {/if}
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_service.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

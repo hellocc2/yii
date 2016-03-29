@@ -1,0 +1,32 @@
+@charset "utf-8";
+.main.margin{margin:0 auto;}
+.Navigation .menu.hover .cate_bd{display:block;height:auto}
+.main1200.header .Search{padding-left:0px;}
+.main1200.header .Search .searchInputT{width:150px;}
+.main1200{width:980px;}
+.joinAbout{background:url(../images/join1.jpg) repeat-x;}
+.joinbanner{height:294px;background:url(../images/join2.jpg) no-repeat;position:relative}
+.joinbanner h2{width:148px;height:44px;line-height:44px;background:#37A016 url(../images/join3.jpg) no-repeat 16px 8px;padding-left:56px;color:#ffffff;font-size:20px;font-family:微软雅黑,黑体;position:absolute;left:0;bottom:-1px;}
+.joinfor{width:978px;border:1px solid #cccccc;margin:0 auto;background:#ffffff url(../images/join4.jpg) repeat-x left bottom;margin-bottom:30px;}
+.joinforL{height:604px;width:178px;float:left;margin-top:12px;padding-left:24px;}
+.joinforR{width:775px;float:left;border-left:1px solid #cccccc;margin:20px 0;}
+.joinforR ul{padding:20px 0 0 12px;}
+.joinforR ul li{margin-bottom:12px;}
+.joinforR ul li select{margin-right:10px;}
+.joinforR ul li em{float:left;padding-left:5px;}
+.joinforR ul li .tit{display:inline-block;width:87px;text-align:right;float:left;}
+.joinforR ul li .pl{padding-left:9px;width:66px;float:left}
+.joinforR ul li .textarea_long{width:600px;height:150px;border:1px solid #ccc;padding:5px;margin:0;float:left;font-size:12px;line-height:22px;}
+.joinforR ul li .textarea_long_big{height:60px;}
+.input_long{height:20px;line-height:20px;border:1px solid #cccccc;float:left}
+.btn_wrap{height:30px;padding-left:100px;}
+.btn_wrap input{border-radius:3px 3px 3px 3px;color:#FFFFFF;cursor:pointer;font-size:15px;font-weight:old;height:28px;padding:0;width:80px;font-family:微软雅黑,黑体;font-weight:bold;float:left;margin:0 8px 0 0;}
+.btn_strong{background:#FF893A;border:1px solid #c24e00;}
+.btn_common{background:#cccccc;border:1px solid #999999;}
+
+.FloatBox{float:left;height:26px;padding-left:2px;position:relative;}
+.FloatBox span{display:block;height:26px;line-height:26px;padding:0 5px 0 26px;color:#666666;}
+.FloatBox span.onShow{display:none}
+.onError{background:url(../images/onError.gif) no-repeat;border-right:1px solid #fcad38;}
+.onFocus{background:url(../images/onFocus.gif) no-repeat;border-right:1px solid #0045b2;}
+.onCorrect{background:url(../images/onCorrect.gif) no-repeat;border-right:1px solid #24a924;}

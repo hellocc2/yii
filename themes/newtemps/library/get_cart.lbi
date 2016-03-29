@@ -1,0 +1,63 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<table border="0" cellpadding="0" cellspacing="0" id="g_14">
+<thead>
+  <tr> 
+	<th><div class="techanBranch">商品列表</div><div class="t_goods">商品名称</div></th>
+	<th><div class="t_promotion">积分</div></th>
+	<th><div class="t_price">单价</div></th>
+	<th><div class="t_quantity">数量</div></th>
+	<th><div class="Preferential">优惠</div></th>
+	<th><div class="Subtotal">小计</div></th>
+	<th><div class="t_action">操作</div></th>
+  </tr>
+</thead>
+<tbody id="content">
+ <!-- {foreach from=$goods_list item=goods} -->
+  <tr id="del_30248"> 
+   <input type="hidden" id="goods_14" value="1" />
+  <td><div style="padding-left:30px;">
+	  <div class="p_img"><a href="goods.php?id={$goods.goods_id}" target="_blank"><img src="{$goods.goods_thumb}" border="0" title="{$goods.goods_name|escape:html}" width="48" height="48" /></a></div>
+	  <div class="p_name"><h3><a href="goods.php?id={$goods.goods_id}" target="_blank" class="f6">{$goods.goods_name}</a></h3></div>
+	</div></td>
+  <td id="jf_30248">{$goods.give_integral}分</td>
+  <td>￥{$goods.goods_price}元</td>
+  <td><div class="buyinfo1"><a href="javascript:;" onclick='add_number({$goods.rec_id},{$goods.goods_id});'>-</a>
+		   <input type="text" name="goods_number[{$goods.rec_id}]" id="goods_number_{$goods.rec_id}" value="{$goods.goods_number}" size="4" />
+	  <a href="javascript:;" onclick='minu({$goods.rec_id},{$goods.goods_id})'>+</a> </div></td>
+  <td id="yp_30248">￥{$goods.js_price}</td>
+  <td id="tp_30248">￥{$goods.subtotal}元</td>
+  <td class="p_remove">
+  <a href="javascript:collect({$goods.goods_id})">收藏</a><br />
+  <a href="javascript:if (confirm('{$lang.drop_goods_confirm}')) location.href='flow.php?step=drop_goods&amp;id={$goods.rec_id}'; " class="date">删除</a></td>
+</tr>
+<!-- {/foreach} -->     
+ </tbody>
+</table>
+<div class="shop-bott" id="site_6">
+<div class="shop-money"> 小计:<span><span class="money">￥</span><span id="t_6">{$goods.subtotal}</span> </span> </div>
+</div>
+<div class="CommodityPrice clearfix">
+<div class="control">
+  <ul id="not_user">            </ul>
+</div>
+<div class="cart_toolbar">
+  <dl>
+	<dt>产品数量总计：</dt>
+	<dd><span id="total_nums">{$total.goods_nuber}件</span></dd>
+  </dl>
+  <dl>
+	<dt>赠送积分总计：</dt>
+	<dd><span id="totle_give_integral">{$total.give_integral}分</span></dd>
+  </dl>
+  
+  <dl>
+	<dt>优惠价格总计：</dt>
+	<dd><span>￥<em class="red" id="totle_volume_price">{$total.saving}</em></span></dd>
+  </dl>
+  <dl>
+	<dt><strong>商品总价</strong>(不含运费)：</dt>
+	<dd><span>￥<strong id="totle_price">{$total.goods_price}</strong></span></dd>
+  </dl>
+</div>
+<div class="clear"></div>
+</div>

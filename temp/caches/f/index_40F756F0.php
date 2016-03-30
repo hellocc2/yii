@@ -1,4 +1,4 @@
-<?php exit;?>a:3:{s:8:"template";a:6:{i:0;s:35:"E:/me/yii/themes/newtemps/index.dwt";i:1;s:49:"E:/me/yii/themes/newtemps/library/page_header.lbi";i:2;s:50:"E:/me/yii/themes/newtemps/library/cat_articles.lbi";i:3;s:42:"E:/me/yii/themes/newtemps/library/help.lbi";i:4;s:49:"E:/me/yii/themes/newtemps/library/page_footer.lbi";i:5;s:50:"E:/me/yii/themes/newtemps/library/page_service.lbi";}s:7:"expires";i:1459242478;s:8:"maketime";i:1459242478;}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php exit;?>a:3:{s:8:"template";a:6:{i:0;s:35:"E:/me/yii/themes/newtemps/index.dwt";i:1;s:49:"E:/me/yii/themes/newtemps/library/page_header.lbi";i:2;s:50:"E:/me/yii/themes/newtemps/library/cat_articles.lbi";i:3;s:42:"E:/me/yii/themes/newtemps/library/help.lbi";i:4;s:49:"E:/me/yii/themes/newtemps/library/page_footer.lbi";i:5;s:50:"E:/me/yii/themes/newtemps/library/page_service.lbi";}s:7:"expires";i:1459298812;s:8:"maketime";i:1459298812;}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="Generator" content="ECSHOP v2.7.3" />
@@ -147,10 +147,6 @@ function show_cart(result){
       <div class="announcementC">
         <ul class="AnnouncementList">
 		
-<br />
-<b>Deprecated</b>:  preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead in <b>E:\me\yii\includes\cls_template.php</b> on line <b>300</b><br />
-<br />
-<b>Strict Standards</b>:  Only variables should be passed by reference in <b>E:\me\yii\includes\cls_template.php</b> on line <b>418</b><br />
         </ul>
       </div>
     </div>

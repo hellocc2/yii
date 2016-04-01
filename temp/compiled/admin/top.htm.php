@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>{$app_name}</title>
+<title><?php echo $this->_var['lang']['app_name']?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="styles/general.css" rel="stylesheet" type="text/css" />
 
-{literal}
+
 <style type="text/css">
 #header-div {
   background: #278296;
@@ -103,7 +103,7 @@
 #menu-div li.fix-spacel{ width:30px; border-left:none; }
 #menu-div li.fix-spacer{ border-right:none; }
 </style>
-{insert_scripts files="../js/transport.js"}
+<?php echo $this->smarty_insert_scripts(array('files'=>'../js/transport.js')); ?>
 <script type="text/javascript">
 onload = function()
 {
@@ -180,9 +180,9 @@ function ShowToDoList()
   {
   }
 }
-{/literal}
 
-var adminId = "{$admin_id}"; 
+
+var adminId = <?php echo $this->_var['admin_id']?>; 
 </script>
 </head>
 <body>
@@ -191,21 +191,21 @@ var adminId = "{$admin_id}";
   <div id="license-div" style="bgcolor:#000000;"></div>
   <div id="submenu-div">
     <ul>
-      <li><a href="../" target="_blank">{$lang.preview}</a></li>
-      <li><a href="message.php?act=list" target="main-frame">{$lang.view_message}</a></li>
-      <li><a href="javascript:window.top.frames['main-frame'].document.location.reload();window.top.frames['header-frame'].document.location.reload()">{$lang.refresh}</a></li>
-      <li><a href="#"  onclick="ShowToDoList()">{$lang.todolist}</a></li>
-      <li style="border-left:none;"><a href="index.php?act=first" target="main-frame">{$lang.shop_guide}</a></li>
+      <li><a href="../" target="_blank"><?php echo $this->_var['lang']['preview']?></a></li>
+      <li><a href="message.php?act=list" target="main-frame"><?php echo $this->_var['lang']['view_message']?></a></li>
+      <li><a href="javascript:window.top.frames['main-frame'].document.location.reload();window.top.frames['header-frame'].document.location.reload()"><?php echo $this->_var['lang']['refresh']?></a></li>
+      <li><a href="#"  onclick="ShowToDoList()"><?php echo $this->_var['lang']['todolist']?></a></li>
+      <li style="border-left:none;"><a href="index.php?act=first" target="main-frame"><?php echo $this->_var['lang']['shop_guide']?></a></li>
     </ul>
     <div id="send_info" style="padding: 5px 10px 0 0; clear:right;text-align: right; color: #FF9900;width:40%;float: right;">
-      {if $send_mail_on eq 'on'}
-      <span id="send_msg"><img src="images/top_loader.gif" width="16" height="16" alt="{$lang.loading}" style="vertical-align: middle" /> {$lang.email_sending}</span>
-      <a href="javascript:;" onClick="Javascript:switcher()" id="lnkSwitch" style="margin-right:10px;color: #FF9900;text-decoration: underline">{$lang.pause}</a>
-      {/if}
-      <a href="index.php?act=clear_cache" target="main-frame" class="fix-submenu">{$lang.clear_cache}</a>
-      <a href="privilege.php?act=logout" target="_top" class="fix-submenu">{$lang.signout}</a>
+      <?php	if ($this->_var['send_mail_on']=='on'):	?>		
+		<span id="send_msg"><img src="images/top_loader.gif" width="16" height="16" alt="{$lang.loading}" style="vertical-align: middle" /><?php echo $this->_var['lang']['email_sending']?></span>
+		<a href="javascript:;" onClick="Javascript:switcher()" id="lnkSwitch" style="margin-right:10px;color: #FF9900;text-decoration: underline"><?php echo $this->_var['lang']['pause']?></a>
+	  <?php endif; ?>
+      <a href="index.php?act=clear_cache" target="main-frame" class="fix-submenu"><?php echo $this->_var['lang']['clear_cache']?></a>
+      <a href="privilege.php?act=logout" target="_top" class="fix-submenu"><?php echo $this->_var['lang']['signout']?></a>
     </div>
-    {if $send_mail_on eq 'on'}
+     <?php	if ($this->_var['send_mail_on']=='on'):	?>		
     <script type="text/javascript" charset="gb2312">
     var sm = window.setInterval("start_sendmail()", 5000);
     var finished = 0;
@@ -214,7 +214,7 @@ var adminId = "{$admin_id}";
     var pause = "{$lang.pause}";
     var counter = 0;
     var str = "{$lang.str}";
-    {literal}
+    
     function start_sendmail()
     {
       Ajax.call('index.php?is_ajax=1&act=send_mail','', start_sendmail_Response, 'GET', 'JSON');
@@ -387,19 +387,22 @@ var adminId = "{$admin_id}";
 
 
 
-    {/literal}
+    
     </script>
-    {/if}
-    <div id="load-div" style="padding: 5px 10px 0 0; text-align: right; color: #FF9900; display: none;width:40%;float:right;"><img src="images/top_loader.gif" width="16" height="16" alt="{$lang.loading}" style="vertical-align: middle" /> {$lang.loading}</div>
+     <?php endif; ?>
+    <div id="load-div" style="padding: 5px 10px 0 0; text-align: right; color: #FF9900; display: none;width:40%;float:right;"><img src="images/top_loader.gif" width="16" height="16" alt="{$lang.loading}" style="vertical-align: middle" /> <?php echo $this->_var['lang']['loading']; ?></div>
   </div>
 </div>
 <div id="menu-div">
   <ul>
     <li class="fix-spacel">&nbsp;</li>
-    <li><a href="index.php?act=main" target="main-frame">{$lang.admin_home}</a></li>
-    {foreach from=$nav_list item=item key=key}
-    <li><a href="{$key}" target="main-frame">{$item}</a></li>
-    {/foreach}
+    <li><a href="index.php?act=main" target="main-frame"><?php echo $this->_var['lang']['admin_home']; ?></a></li>
+	<?php $_from = $this->_var['nav_list ']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'item');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['item']):?>
+   
+    <li><a href="<?php echo $this->_var['key']; ?>" target="main-frame"><?php echo $this->_var['item']; ?></a></li>
+    
+	<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
     <li class="fix-spacer">&nbsp;</li>
   </ul>
   <br class="clear" />

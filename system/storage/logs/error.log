@@ -67,3 +67,4 @@
 2016-03-13 16:32:56 - PHP Notice:  Undefined variable: text_press_category in C:\wamp\www\mycncart\catalog\view\theme\default\template\press\press.tpl on line 5
 2016-03-13 16:32:59 - PHP Notice:  Undefined variable: text_press_category in C:\wamp\www\mycncart\catalog\view\theme\default\template\press\all.tpl on line 5
 2016-03-13 16:40:51 - PHP Notice:  Undefined variable: text_faq_category in C:\wamp\www\mycncart\catalog\view\theme\default\template\faq\faq.tpl on line 5
+2016-04-13 16:39:26 - PHP Notice:  Undefined index: route in E:\me\yii\catalog\controller\common\content_top.php on line 5

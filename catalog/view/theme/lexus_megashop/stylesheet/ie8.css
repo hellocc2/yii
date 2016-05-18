@@ -1,0 +1,40 @@
+.product-block:hover .img-overlay{
+	background-color:#505050;
+	opacity:0.6;
+	filter:alpha(opacity=60); 
+}
+.product-grid .product-meta{
+	min-height: 90px;
+	height:90px;
+	height: auto !important;
+}
+.pavcontentslider .carousel-control,
+.product-info .carousel-control{
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+}
+.pavcontentslider:hover .carousel-control,
+.image-additional:hover .carousel-control{
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
+.product-info .image-additional a{
+	width: 25%;
+}
+
+.in-border{
+	border-left: 1px solid #e2e2e2;
+}
+
+.sidebar .box .box-heading{
+	min-height: 20px;
+}
+
+#colorbox{
+	box-sizing: border-box;
+    -ms-box-sizing: border-box; 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box;
+}

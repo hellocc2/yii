@@ -1,0 +1,24 @@
+2016-05-16 5:45:12 - PHP Notice:  Error: Could not load language zh-CN! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:47:26 - PHP Notice:  Error: Could not load language zh-CN! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:47:44 - PHP Notice:  Error: Could not load language zh-CN! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:47:45 - PHP Notice:  Error: Could not load language zh-CN! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:47:46 - PHP Notice:  Error: Could not load language zh-CN! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:47:59 - PHP Notice:  Error: Could not load language zh-CN! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:53:11 - PHP Notice:  Error: Could not load language  zh-CN! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:57:28 - PHP Notice:  Error: Could not load language  zh-CN! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:57:31 - PHP Notice:  Error: Could not load language  zh-CN! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:57:43 - PHP Notice:  Error: Could not load language  zh-CN! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:58:09 - PHP Notice:  Undefined index: zh-CN in E:\me\yii\admin\index.php on line 120
+2016-05-16 5:58:09 - PHP Notice:  Undefined index: zh-CN in E:\me\yii\admin\index.php on line 123
+2016-05-16 5:58:09 - PHP Notice:  Undefined index: zh-CN in E:\me\yii\admin\index.php on line 124
+2016-05-16 5:58:09 - PHP Notice:  Error: Could not load language ! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:58:17 - PHP Notice:  Undefined index: zh-CN in E:\me\yii\admin\index.php on line 120
+2016-05-16 5:58:17 - PHP Notice:  Undefined index: zh-CN in E:\me\yii\admin\index.php on line 123
+2016-05-16 5:58:17 - PHP Notice:  Undefined index: zh-CN in E:\me\yii\admin\index.php on line 124
+2016-05-16 5:58:17 - PHP Notice:  Error: Could not load language ! in E:\me\yii\system\library\language.php on line 39
+2016-05-16 5:58:30 - PHP Notice:  Undefined index: zh-CN in E:\me\yii\admin\index.php on line 120
+2016-05-16 5:58:30 - PHP Notice:  Undefined index: zh-CN in E:\me\yii\admin\index.php on line 123
+2016-05-16 5:58:30 - PHP Notice:  Undefined index: zh-CN in E:\me\yii\admin\index.php on line 124
+2016-05-16 5:58:30 - PHP Notice:  Error: Could not load language ! in E:\me\yii\system\library\language.php on line 39
+2016-05-18 1:00:59 - PHP Notice:  Error: Could not load language chinese! in E:\me\yii\system\library\language.php on line 39
+2016-05-18 1:01:20 - PHP Notice:  Error: Could not load language chinese! in E:\me\yii\system\library\language.php on line 39

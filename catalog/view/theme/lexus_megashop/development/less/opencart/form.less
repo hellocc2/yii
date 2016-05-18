@@ -1,0 +1,27 @@
+.form-control {  
+    .box-shadow(none); 
+    padding: 5px;
+    &:focus{
+      .box-shadow(none);
+    }    
+}
+input, button, select, textarea{
+	padding: 5px;
+	border: 1px solid @border-color;
+}
+input[type="image"]{
+	border: 0;
+}
+.btn{
+	font-size: @font-size-base - 3;
+	background-color: @theme-color;
+	color: @white;
+	padding: 6px 15px;
+	text-transform: uppercase;
+	&:hover,&:focus{
+		color: @white;
+	}
+}
+.control-label{
+	padding-top: 7px;
+}

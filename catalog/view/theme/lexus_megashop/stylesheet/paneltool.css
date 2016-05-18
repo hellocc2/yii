@@ -30,6 +30,7 @@
 	padding: 15px;
 }
 .panelbutton{
+	display:none;
 	border:solid 1px #CCC;
 	background: #FFF; 
 	padding: 9px 11px;

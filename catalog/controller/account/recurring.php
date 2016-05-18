@@ -1,256 +1,271 @@
-<?php
+<?php 
 class ControllerAccountRecurring extends Controller {
-	public function index() {
-		if (!$this->customer->isLogged()) {
-			$this->session->data['redirect'] = $this->url->link('account/recurring', '', true);
+    public function index() {
+        if (!$this->customer->isLogged()) {
+            $this->session->data['redirect'] = $this->url->link('account/order', '', 'SSL');
 
-			$this->response->redirect($this->url->link('account/login', '', true));
-		}
+            $this->redirect($this->url->link('account/login', '', 'SSL'));
+        }
 
-		$this->load->language('account/recurring');
+        $this->language->load('account/recurring');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+        $this->load->model('account/recurring');
 
-		$url = '';
+        $this->document->setTitle($this->language->get('heading_title'));
 
-		if (isset($this->request->get['page'])) {
-			$url .= '&page=' . $this->request->get['page'];
-		}
+        $this->data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'] = array();
+        $this->data['breadcrumbs'][] = array(
+            'text'      => $this->language->get('text_home'),
+            'href'      => $this->url->link('common/home'),
+            'separator' => false
+        );
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home')
-		);
+        $this->data['breadcrumbs'][] = array(
+            'text'      => $this->language->get('text_account'),
+            'href'      => $this->url->link('account/account', '', 'SSL'),
+            'separator' => $this->language->get('text_separator')
+        );
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
-		);
+        $url = '';
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/recurring', $url, true)
-		);
+        if (isset($this->request->get['page'])) {
+            $url .= '&page=' . $this->request->get['page'];
+        }
 
-		$data['heading_title'] = $this->language->get('heading_title');
-		
-		$data['text_empty'] = $this->language->get('text_empty');
-		
-		$data['column_order_recurring_id'] = $this->language->get('column_order_recurring_id');
-		$data['column_product'] = $this->language->get('column_product');
-		$data['column_status'] = $this->language->get('column_status');
-		$data['column_date_added'] = $this->language->get('column_date_added');
-		$data['column_action'] = $this->language->get('column_action');
-		
-		$data['button_view'] = $this->language->get('button_view');
-		$data['button_continue'] = $this->language->get('button_continue');
+        $this->data['breadcrumbs'][] = array(
+            'text'      => $this->language->get('heading_title'),
+            'href'      => $this->url->link('account/recurring', $url, 'SSL'),
+            'separator' => $this->language->get('text_separator')
+        );
 
-		if (isset($this->request->get['page'])) {
-			$page = $this->request->get['page'];
-		} else {
-			$page = 1;
-		}
+        $this->data['heading_title'] = $this->language->get('heading_title');
+        $this->data['column_created'] = $this->language->get('column_created');
+        $this->data['column_status'] = $this->language->get('column_status');
+        $this->data['column_product'] = $this->language->get('column_product');
+        $this->data['column_action'] = $this->language->get('column_action');
+        $this->data['column_profile_id'] = $this->language->get('column_profile_id');
+        $this->data['text_empty'] = $this->language->get('text_empty');
+        $this->data['button_view'] = $this->language->get('button_view');
+        $this->data['button_continue'] = $this->language->get('button_continue');
 
-		$data['recurrings'] = array();
-		
-		$this->load->model('account/recurring');
-		
-		$recurring_total = $this->model_account_recurring->getTotalOrderRecurrings();
+        if (isset($this->request->get['page'])) {
+            $page = $this->request->get['page'];
+        } else {
+            $page = 1;
+        }
 
-		$results = $this->model_account_recurring->getOrderRecurrings(($page - 1) * 10, 10);
+        $this->data['orders'] = array();
 
-		foreach ($results as $result) {
-			if ($result['status']) {
-				$status = $this->language->get('text_status_' . $result['status']);
-			} else {
-				$status = '';
-			}
-			
-			$data['recurrings'][] = array(
-				'order_recurring_id' => $result['order_recurring_id'],
-				'product'            => $result['product_name'],
-				'status'             => $status,
-				'date_added'         => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'view'               => $this->url->link('account/recurring/info', 'order_recurring_id=' . $result['order_recurring_id'], true),
-			);
-		}
+        $recurring_total = $this->model_account_recurring->getTotalRecurring();
 
-		$pagination = new Pagination();
-		$pagination->total = $recurring_total;
-		$pagination->page = $page;
-		$pagination->limit = 10;
-		$pagination->text = $this->language->get('text_pagination');
-		$pagination->url = $this->url->link('account/recurring', 'page={page}', true);
+        $results = $this->model_account_recurring->getAllProfiles(($page - 1) * 10, 10);
 
-		$data['pagination'] = $pagination->render();
+        $this->data['profiles'] = array();
 
-		$data['continue'] = $this->url->link('account/account', '', true);
+        if($results){
+            foreach ($results as $result) {
+                $this->data['profiles'][] = array(
+                    'id'                    => $result['order_recurring_id'],
+                    'name'                  => $result['product_name'],
+                    'status'                => $result['status'],
+                    'created'               => date($this->language->get('date_format_short'), strtotime($result['created'])),
+                    'href'                  => $this->url->link('account/recurring/info','recurring_id='.$result['order_recurring_id'],'SSL'),
+                );
+            }
+        }
 
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['column_right'] = $this->load->controller('common/column_right');
-		$data['content_top'] = $this->load->controller('common/content_top');
-		$data['content_bottom'] = $this->load->controller('common/content_bottom');
-		$data['footer'] = $this->load->controller('common/footer');
-		$data['header'] = $this->load->controller('common/header');
+        $this->data['status_types'] = array(
+            1 => $this->language->get('text_status_inactive'),
+            2 => $this->language->get('text_status_active'),
+            3 => $this->language->get('text_status_suspended'),
+            4 => $this->language->get('text_status_cancelled'),
+            5 => $this->language->get('text_status_expired'),
+            6 => $this->language->get('text_status_pending'),
+        );
 
-		$this->response->setOutput($this->load->view('account/recurring_list', $data));
-	}
+        $pagination = new Pagination();
+        $pagination->total = $recurring_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->text = $this->language->get('text_pagination');
+        $pagination->url = $this->url->link('account/recurring', 'page={page}', 'SSL');
 
-	public function info() {
-		$this->load->language('account/recurring');
+        $this->data['pagination'] = $pagination->render();
 
-		if (isset($this->request->get['order_recurring_id'])) {
-			$order_recurring_id = $this->request->get['order_recurring_id'];
-		} else {
-			$order_recurring_id = 0;
-		}
+        $this->data['continue'] = $this->url->link('account/account', '', 'SSL');
 
-		if (!$this->customer->isLogged()) {
-			$this->session->data['redirect'] = $this->url->link('account/recurring/info', 'order_recurring_id=' . $order_recurring_id, true);
+        if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/account/recurring_list.tpl')) {
+            $this->template = $this->config->get('config_template') . '/template/account/recurring_list.tpl';
+        } else {
+            $this->template = 'default/template/account/recurring_list.tpl';
+        }
 
-			$this->response->redirect($this->url->link('account/login', '', true));
-		}
-		
-		$this->load->model('account/recurring');
+        $this->children = array(
+            'common/column_left',
+            'common/column_right',
+            'common/content_top',
+            'common/content_bottom',
+            'common/footer',
+            'common/header'
+        );
 
-		$recurring_info = $this->model_account_recurring->getOrderRecurring($order_recurring_id);
+        $this->response->setOutput($this->render());
+    }
 
-		if ($recurring_info) {
-			$this->document->setTitle($this->language->get('text_recurring'));
-			
-			$url = '';
+    public function info() {
+        $this->load->model('account/recurring');
+        $this->load->language('account/recurring');
 
-			if (isset($this->request->get['page'])) {
-				$url .= '&page=' . $this->request->get['page'];
-			}
-			
-			$data['breadcrumbs'] = array();
+        if (isset($this->request->get['recurring_id'])) {
+            $recurring_id = $this->request->get['recurring_id'];
+        } else {
+            $recurring_id = 0;
+        }
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_home'),
-				'href' => $this->url->link('common/home'),
-			);
+        if (!$this->customer->isLogged()) {
+            $this->session->data['redirect'] = $this->url->link('account/recurring/info', 'recurring_id=' . $recurring_id, 'SSL');
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_account'),
-				'href' => $this->url->link('account/account', '', true),
-			);
+            $this->redirect($this->url->link('account/login', '', 'SSL'));
+        }
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('account/recurring', $url, true),
-			);
+        if(isset($this->session->data['error'])){
+            $this->data['error'] = $this->session->data['error'];
+            unset($this->session->data['error']);
+        }else{
+            $this->data['error'] = '';
+        }
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_recurring'),
-				'href' => $this->url->link('account/recurring/info', 'order_recurring_id=' . $this->request->get['order_recurring_id'] . $url, true),
-			);
+        if(isset($this->session->data['success'])){
+            $this->data['success'] = $this->session->data['success'];
+            unset($this->session->data['success']);
+        }else{
+            $this->data['success'] = '';
+        }
 
-			$data['heading_title'] = $this->language->get('text_recurring');
+        $profile = $this->model_account_recurring->getProfile($this->request->get['recurring_id']);
 
-			$data['text_recurring_detail'] = $this->language->get('text_recurring_detail');
-			$data['text_order_recurring_id'] = $this->language->get('text_order_recurring_id');
-			$data['text_date_added'] = $this->language->get('text_date_added');
-			$data['text_status'] = $this->language->get('text_status');
-			$data['text_payment_method'] = $this->language->get('text_payment_method');
-			$data['text_order_id'] = $this->language->get('text_order_id');
-			$data['text_product'] = $this->language->get('text_product');
-			$data['text_quantity'] = $this->language->get('text_quantity');
-			$data['text_description'] = $this->language->get('text_description');
-			$data['text_reference'] = $this->language->get('text_reference');
-			$data['text_transaction'] = $this->language->get('text_transaction');
-			$data['text_no_results'] = $this->language->get('text_no_results');
-			
-			$data['column_date_added'] = $this->language->get('column_date_added');
-			$data['column_type'] = $this->language->get('column_type');
-			$data['column_amount'] = $this->language->get('column_amount');
+        $profile['transactions'] = $this->model_account_recurring->getProfileTransactions($this->request->get['recurring_id']);
 
-			$data['order_recurring_id'] = $this->request->get['order_recurring_id'];
-			$data['date_added'] = date($this->language->get('date_format_short'), strtotime($recurring_info['date_added']));
-			
-			if ($recurring_info['status']) {
-				$data['status'] = $this->language->get('text_status_' . $recurring_info['status']);
-			} else {
-				$data['status'] = '';
-			}
-			
-			$data['payment_method'] = $recurring_info['payment_method'];
-			
-			$data['order_id'] = $recurring_info['order_id'];
-			$data['product_name'] = $recurring_info['product_name'];
-			$data['product_quantity'] = $recurring_info['product_quantity'];
-			$data['recurring_description'] = $recurring_info['recurring_description'];
-			$data['reference'] = $recurring_info['reference'];
-			
-			// Transactions
-			$data['transactions'] = array();
-			
-			$results = $this->model_account_recurring->getOrderRecurringTransactions($this->request->get['order_recurring_id']);
+        $profile['created'] = date($this->language->get('date_format_short'), strtotime($profile['created']));
+        $profile['product_link'] = $this->url->link('product/product', 'product_id='.$profile['product_id'], 'SSL');
+        $profile['order_link'] = $this->url->link('account/order/info', 'order_id='.$profile['order_id'], 'SSL');
 
-			foreach ($results as $result) {
-				$data['transactions'][] = array(
-					'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-					'type'       => $result['type'],
-					'amount'     => $this->currency->format($result['amount'], $recurring_info['currency'])
-				);
-			}
-			
-			$data['order'] = $this->url->link('account/order/info', 'order_id=' . $recurring_info['order_id'], true);
-			$data['product'] = $this->url->link('product/product', 'product_id=' . $recurring_info['product_id'], true);
-			
-			$data['recurring'] = $this->load->controller('recurring/' . $recurring_info['payment_code']);
-			
-			$data['column_left'] = $this->load->controller('common/column_left');
-			$data['column_right'] = $this->load->controller('common/column_right');
-			$data['content_top'] = $this->load->controller('common/content_top');
-			$data['content_bottom'] = $this->load->controller('common/content_bottom');
-			$data['footer'] = $this->load->controller('common/footer');
-			$data['header'] = $this->load->controller('common/header');
+        if($profile['status'] == 1 || $profile['status'] == 2){
+            /**
+             * If the payment profiles payment type has a cancel action then link to that. If not then hide the button.
+             */
+            if(!empty($profile['payment_code']) && $this->hasAction('payment/' . $profile['payment_code'] . '/recurringCancel') == true && $this->config->get($profile['payment_code'] . '_profile_cancel_status')){
+                $this->data['cancel_link'] = $this->url->link('payment/'.$profile['payment_code'].'/recurringCancel', 'recurring_id='.$this->request->get['recurring_id'], 'SSL');
+            }else{
+                $this->data['cancel_link'] = '';
+            }
+        }else{
+            $this->data['cancel_link'] = '';
+        }
 
-			$this->response->setOutput($this->load->view('account/recurring_info', $data));
-		} else {
-			$this->document->setTitle($this->language->get('text_recurring'));
+        $this->data['status_types'] = array(
+            1 => $this->language->get('text_status_inactive'),
+            2 => $this->language->get('text_status_active'),
+            3 => $this->language->get('text_status_suspended'),
+            4 => $this->language->get('text_status_cancelled'),
+            5 => $this->language->get('text_status_expired'),
+            6 => $this->language->get('text_status_pending'),
+        );
 
-			$data['heading_title'] = $this->language->get('text_recurring');
+        $this->data['transaction_types'] = array(
+            0 => $this->language->get('text_transaction_created'),
+            1 => $this->language->get('text_transaction_payment'),
+            2 => $this->language->get('text_transaction_outstanding_payment'),
+            3 => $this->language->get('text_transaction_skipped'),
+            4 => $this->language->get('text_transaction_failed'),
+            5 => $this->language->get('text_transaction_cancelled'),
+            6 => $this->language->get('text_transaction_suspended'),
+            7 => $this->language->get('text_transaction_suspended_failed'),
+            8 => $this->language->get('text_transaction_outstanding_failed'),
+            9 => $this->language->get('text_transaction_expired'),
+        );
 
-			$data['text_error'] = $this->language->get('text_error');
+        if ($profile) {
+            $this->document->setTitle($this->language->get('text_recurring'));
 
-			$data['button_continue'] = $this->language->get('button_continue');
+            $this->data['breadcrumbs'] = array();
 
-			$data['breadcrumbs'] = array();
+            $this->data['breadcrumbs'][] = array(
+                'text'      => $this->language->get('text_home'),
+                'href'      => $this->url->link('common/home'),
+                'separator' => false
+            );
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_home'),
-				'href' => $this->url->link('common/home')
-			);
+            $this->data['breadcrumbs'][] = array(
+                'text'      => $this->language->get('text_account'),
+                'href'      => $this->url->link('account/account', '', 'SSL'),
+                'separator' => $this->language->get('text_separator')
+            );
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_account'),
-				'href' => $this->url->link('account/account', '', true)
-			);
+            $url = '';
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('account/recurring', '', true)
-			);
+            if (isset($this->request->get['page'])) {
+                $url .= '&page=' . $this->request->get['page'];
+            }
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_recurring'),
-				'href' => $this->url->link('account/recurring/info', 'order_recurring_id=' . $order_recurring_id, true)
-			);
+            $this->data['breadcrumbs'][] = array(
+                'text'      => $this->language->get('heading_title'),
+                'href'      => $this->url->link('account/recurring', $url, 'SSL'),
+                'separator' => $this->language->get('text_separator')
+            );
 
-			$data['continue'] = $this->url->link('account/recurring', '', true);
+            $this->data['breadcrumbs'][] = array(
+                'text'      => $this->language->get('text_recurring'),
+                'href'      => $this->url->link('account/recurring/info', 'recurring_id=' . $this->request->get['recurring_id'] . $url, 'SSL'),
+                'separator' => $this->language->get('text_separator')
+            );
 
-			$data['column_left'] = $this->load->controller('common/column_left');
-			$data['column_right'] = $this->load->controller('common/column_right');
-			$data['content_top'] = $this->load->controller('common/content_top');
-			$data['content_bottom'] = $this->load->controller('common/content_bottom');
-			$data['footer'] = $this->load->controller('common/footer');
-			$data['header'] = $this->load->controller('common/header');
+            $this->data['heading_title'] = $this->language->get('text_recurring');
 
-			$this->response->setOutput($this->load->view('error/not_found', $data));
-		}
-	}
+            $this->data['column_created'] = $this->language->get('column_created');
+            $this->data['column_type'] = $this->language->get('column_type');
+            $this->data['column_amount'] = $this->language->get('column_amount');
+
+            $this->data['text_recurring_id'] = $this->language->get('text_recurring_id');
+            $this->data['text_date_added'] = $this->language->get('text_date_added');
+            $this->data['text_empty_transactions'] = $this->language->get('text_empty_transactions');
+            $this->data['text_payment_method'] = $this->language->get('text_payment_method');
+            $this->data['text_recurring_detail'] = $this->language->get('text_recurring_detail');
+            $this->data['text_status'] = $this->language->get('text_status');
+            $this->data['text_ref'] = $this->language->get('text_ref');
+            $this->data['text_product'] = $this->language->get('text_product');
+            $this->data['text_order'] = $this->language->get('text_order');
+            $this->data['text_quantity'] = $this->language->get('text_quantity');
+            $this->data['text_transactions'] = $this->language->get('text_transactions');
+            $this->data['text_recurring_description'] = $this->language->get('text_recurring_description');
+
+            $this->data['button_return'] = $this->language->get('button_return');
+            $this->data['button_continue'] = $this->language->get('button_continue');
+            $this->data['button_cancel_profile'] = $this->language->get('button_cancel_profile');
+            $this->data['text_confirm_cancel'] = $this->language->get('text_confirm_cancel');
+            $this->data['continue'] = $this->url->link('account/recurring', '', 'SSL');
+            $this->data['profile'] = $profile;
+
+            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/account/recurring_info.tpl')) {
+                $this->template = $this->config->get('config_template') . '/template/account/recurring_info.tpl';
+            } else {
+                $this->template = 'default/template/account/recurring_info.tpl';
+            }
+
+            $this->children = array(
+                'common/column_left',
+                'common/column_right',
+                'common/content_top',
+                'common/content_bottom',
+                'common/footer',
+                'common/header'
+            );
+
+            $this->response->setOutput($this->render());
+        } else {
+            $this->redirect($this->url->link('account/recurring', '', 'SSL'));
+        }
+    }
 }
+?>

@@ -4,7 +4,7 @@
   <input type="hidden" name="amount" value="<?php echo $amount; ?>" />
   <?php if ($digest) { ?>
   <input type="hidden" name="digest" value="<?php echo $digest; ?>" />
-  <?php } ?>
+  <?php } ?>  
   <input type="hidden" name="bill_name" value="<?php echo $bill_name; ?>" />
   <input type="hidden" name="bill_addr_1" value="<?php echo $bill_addr_1; ?>" />
   <input type="hidden" name="bill_addr_2" value="<?php echo $bill_addr_2; ?>" />
@@ -25,8 +25,8 @@
   <input type="hidden" name="callback" value="<?php echo $callback; ?>" />
   <input type="hidden" name="options" value="<?php echo $options; ?>" />
   <div class="buttons">
-    <div class="pull-right">
-      <input type="submit" value="<?php echo $button_confirm; ?>" class="btn btn-primary" />
+    <div class="right">
+      <input type="submit" value="<?php echo $button_confirm; ?>" class="button" />
     </div>
   </div>
 </form>

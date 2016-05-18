@@ -1,145 +1,116 @@
-<?php echo $header; ?><?php echo $column_left; ?>
+<?php echo $header; ?>
 <div id="content">
-  <div class="page-header">
-    <div class="container-fluid">
-      <div class="pull-right"><a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
-      <h1><?php echo $heading_title; ?></h1>
-      <ul class="breadcrumb">
+    <div class="breadcrumb">
         <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+            <?php echo $breadcrumb['separator']; ?><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
         <?php } ?>
-      </ul>
     </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_recurring_detail; ?></h3>
-          </div>
-          <div class="panel-body">
-            <table class="table table-bordered">
-              <tr>
-                <td><?php echo $text_order_recurring_id; ?></td>
-                <td><?php echo $order_recurring_id; ?></td>
-              </tr>
-              <tr>
-                <td><?php echo $text_reference; ?></td>
-                <td><?php echo $reference; ?></td>
-              </tr>
-              <tr>
-                <td><?php echo $text_recurring_name; ?></td>
-                <td><?php if ($recurring) { ?>
-                  <a href="<?php echo $recurring; ?>"><?php echo $recurring_name; ?></a>
-                  <?php } else { ?>
-                  <?php echo $recurring_name; ?>
-                  <?php } ?></td>
-              </tr>
-              <tr>
-                <td><?php echo $text_recurring_description; ?></td>
-                <td><?php echo $recurring_description; ?></td>
-              </tr>
-              <tr>
-                <td><?php echo $text_recurring_status; ?></td>
-                <td><?php echo $recurring_status; ?></td>
-              </tr>
-              <tr>
-                <td><?php echo $text_payment_method; ?></td>
-                <td><?php echo $payment_method; ?></td>
-              </tr>
-            </table>
-          </div>
+    <?php if ($error_warning) { ?>
+        <div class="warning"><?php echo $error_warning; ?></div>
+    <?php } ?>
+    <?php if ($success) { ?>
+        <div class="success"><?php echo $success; ?></div>
+    <?php } ?>
+    <div class="box">
+        <div class="heading">
+            <h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>
+            <div class="buttons"><a class="button" href="<?php echo $return ?>"><?php echo $text_return ?></a></div>
         </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_order_detail; ?></h3>
-          </div>
-          <div class="panel-body">
-            <table class="table table-bordered">
-              <tr>
-                <td><?php echo $text_order_id; ?></td>
-                <td><a href="<?php echo $order; ?>"><?php echo $order_id; ?></a></td>
-              </tr>
-              <tr>
-                <td><?php echo $text_customer; ?></td>
-                <td><?php if ($customer) { ?>
-                  <a href="<?php echo $customer ?>"><?php echo $firstname; ?> <?php echo $lastname; ?></a>
-                  <?php } else { ?>
-                  <?php echo $firstname; ?> <?php echo $lastname; ?>
-                  <?php } ?></td>
-              </tr>
-              <tr>
-                <td><?php echo $text_email; ?></td>
-                <td><?php echo $email; ?></td>
-              </tr>
-              <tr>
-                <td><?php echo $text_order_status; ?></td>
-                <td><?php echo $order_status; ?></td>
-              </tr>
-              <tr>
-                <td><?php echo $text_date_added; ?></td>
-                <td><?php echo $date_added; ?></td>
-              </tr>
+        <div class="content">
+            <table class="form">
+                <tr>
+                    <td><?php echo $entry_order_recurring ?></td>
+                    <td><?php echo $order_recurring_id ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_order_id ?></td>
+                    <td><a href="<?php echo $order_href ?>"><?php echo $order_id ?></a></td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_customer ?></td>
+                    <td>
+                        <?php if ($customer_href): ?>
+                            <a href="<?php echo $customer_href ?>"><?php echo $customer ?></a>
+                        <?php else: ?>
+                            <?php echo $customer ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_email ?></td>
+                    <td><?php echo $email ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_status ?></td>
+                    <td><?php echo $status ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_date_created ?></td>
+                    <td><?php echo $date_created ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_payment_reference ?></td>
+                    <td><?php echo $profile_reference ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_payment_type ?></td>
+                    <td><?php echo $payment_method ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_profile ?></td>
+                    <td>
+                        <?php if ($profile): ?>
+                        <a href="<?php echo $profile ?>"><?php echo $profile_name ?></a>
+                        <?php else: ?>
+                        <?php echo $profile_name ?>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_profile_description ?></td>
+                    <td><?php echo $profile_description ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_product ?></td>
+                    <td><?php echo $product ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $entry_quantity ?></td>
+                    <td><?php echo $quantity ?></td>
+                </tr>
+
+                <?php if($cancel_link){ ?>
+                <tr>
+                    <td><?php echo $entry_cancel_payment ?></td>
+                    <td><a id="cancel-profile" href="<?php echo $cancel_link; ?>" class="button"><?php echo $text_cancel ?></a></td>
+                </tr>
+                <?php } ?>
             </table>
-          </div>
+            <h2><?php echo $text_transactions ?></h2>
+            <table class="list">
+                <thead>
+                    <tr>
+                        <td class="left"><?php echo $entry_date_created ?></td>
+                        <td class="left"><?php echo $entry_amount ?></td>
+                        <td class="left"><?php echo $entry_type ?></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($transactions as $transaction): ?>
+                    <tr>
+                        <td class="left"><?php echo $transaction['created'] ?></td>
+                        <td class="left"><?php echo $transaction['amount'] ?></td>
+                        <td class="left"><?php echo $transaction['type'] ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
-      </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_product_detail; ?></h3>
-      </div>
-      <div class="panel-body">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <td><?php echo $text_product; ?></td>
-              <td><?php echo $text_quantity; ?></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><?php echo $product; ?></td>
-              <td><?php echo $quantity; ?></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $text_transaction; ?></h3>
-      </div>
-      <div class="panel-body"> <?php echo $buttons; ?>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <td class="text-left"><?php echo $column_date_added; ?></td>
-              <td class="text-right"><?php echo $column_amount; ?></td>
-              <td class="text-left"><?php echo $column_type; ?></td>
-            </tr>
-          </thead>
-          <tbody>
-            <?php if ($transactions) { ?>
-            <?php foreach ($transactions as $transaction) { ?>
-            <tr>
-              <td class="text-left"><?php echo $transaction['date_added']; ?></td>
-              <td class="text-right"><?php echo $transaction['amount']; ?></td>
-              <td class="text-left"><?php echo $transaction['type']; ?></td>
-            </tr>
-            <?php } ?>
-            <?php } else { ?>
-            <tr>
-              <td class="text-center" colspan="7"><?php echo $text_no_results; ?></td>
-            </tr>
-            <?php } ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
 </div>
-<?php echo $footer; ?> 
+<script type="text/javascript"><!--
+    $('#cancel-profile').click(function(){
+        return confirm("<?php echo $text_cancel_confirm ?>");
+    });
+//--></script>
+<?php echo $footer; ?>
